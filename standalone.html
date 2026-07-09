@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Fran Bulnes — strategic visual designer building products from 0 to 1." />
+  <meta name="theme-color" content="#f7f5ee" />
+  <title>Fran Bulnes</title>
+  <style>
+    :root {
+      --background: #f7f5ee;
+      --text: #1f1e1b;
+      --muted: #8c887f;
+      --link: #1f1e1b;
+      --selection: rgba(31, 30, 27, 0.12);
+      --max-width: 610px;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    html { background: var(--background); }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--background);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.52;
+      letter-spacing: -0.012em;
+    }
+    ::selection { background: var(--selection); }
+    .page-shell {
+      width: 100%;
+      min-height: 100vh;
+      padding: 48px 48px 72px;
+      position: relative;
+    }
+    .bio { width: min(100%, var(--max-width)); }
+    h1, p { margin: 0; }
+    h1 {
+      font-size: 14px;
+      line-height: 1.52;
+      font-weight: 500;
+      letter-spacing: -0.012em;
+    }
+    .updated {
+      color: var(--muted);
+      margin-top: 18px;
+      margin-bottom: 22px;
+    }
+    p + p { margin-top: 17px; }
+    a {
+      color: var(--link);
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      text-decoration-color: rgba(31, 30, 27, 0.34);
+      transition: color 180ms ease, text-decoration-color 180ms ease, opacity 180ms ease;
+    }
+    a:hover {
+      opacity: 0.68;
+      text-decoration-color: currentColor;
+    }
+    .clock {
+      position: fixed;
+      left: 48px;
+      bottom: 36px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1;
+      letter-spacing: -0.008em;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .clock-digits {
+      color: var(--text);
+      display: inline-block;
+      min-width: 4.9em;
+      font-variant-numeric: tabular-nums;
+    }
+    .clock-location { color: var(--muted); }
+    .sparkle {
+      display: inline-block;
+      color: var(--muted);
+      transform-origin: 50% 50%;
+      animation: sparkle-loop 4.8s ease-in-out infinite;
+    }
+    @keyframes sparkle-loop {
+      0%, 100% { opacity: 0.52; transform: translateY(0) rotate(0deg) scale(1); }
+      45% { opacity: 0.9; transform: translateY(-1px) rotate(4deg) scale(1.035); }
+      70% { opacity: 0.68; transform: translateY(0) rotate(-2deg) scale(1.01); }
+    }
+    @media (max-width: 720px) {
+      .page-shell { padding: 28px 24px 64px; }
+      .clock { left: 24px; bottom: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="bio" aria-labelledby="site-title">
+      <h1 id="site-title">Fran Bulnes</h1>
+      <p class="updated">Updated July 8th, 2026</p>
+
+      <p>I was born in Santiago de Chile, and have lived in Buenos Aires and China. Currently living in Santiago.</p>
+
+      <p>I currently work at <a href="https://topsort.com" target="_blank" rel="noreferrer">Topsort</a>, where I lead design for Topsort's Products. Previously, I was Staff Product Designer at <a href="https://getjusto.com" target="_blank" rel="noreferrer">Get Justo</a> and <a href="https://www.uber.com/cl/es/about/cornershop/" target="_blank" rel="noreferrer">Cornershop</a> (acquired by Uber).</p>
+
+      <p>I consider myself a strategic visual designer, passionate about building products from 0 to 1.</p>
+
+      <p>You can find me on <a href="https://x.com/franentrenubes" target="_blank" rel="noreferrer">X</a>, <a href="https://instagram.com/franentrenubes" target="_blank" rel="noreferrer">Instagram</a>, or reach me via <a href="mailto:fran@entrenubes.cl">email</a>.</p>
+    </section>
+
+    <footer class="clock" aria-live="polite">
+      <span class="clock-digits" id="clock-digits"></span><span class="clock-location"> in Santiago, Chile</span><span class="sparkle" aria-hidden="true"> ‧₊˚✧</span>
+    </footer>
+  </main>
+
+  <script>
+    const clock = document.getElementById('clock-digits');
+    function getSantiagoTime() {
+      return new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Santiago',
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      }).format(new Date()).toLowerCase();
+    }
+    function renderClock() {
+      clock.textContent = getSantiagoTime();
+    }
+    renderClock();
+    setInterval(renderClock, 1000);
+  </script>
+</body>
+</html>
