@@ -77,7 +77,7 @@ function App() {
   useEffect(() => {
     document.documentElement.lang = language;
     window.localStorage.setItem('site-language-choice', language);
-    document.title = language === 'es' ? 'Fran Bulnes — un rincón de internet' : 'Fran Bulnes — a corner of the internet';
+    document.title = 'Francisco Bulnes - Designer';
     document.querySelector('meta[name="description"]')?.setAttribute('content', language === 'es'
       ? 'Un pequeño espacio para el diseño, los proyectos y las ideas de Fran Bulnes.'
       : 'A small space for Fran Bulnes’s design work, projects, and ideas.');
