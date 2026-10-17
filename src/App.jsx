@@ -101,7 +101,14 @@ function App() {
           <section className="intro" aria-label={copy.sectionLabel}>
             <div className="intro-copy">
               <p className="intro-lead">{copy.introduction}</p>
-              {copy.biography.map((paragraph, index) => <p key={index}>{paragraph.map((segment, part) => segment.href ? <a key={part} href={segment.href === 'mailto:' ? `${segment.href}${copy.email}` : segment.href} target={segment.href.startsWith('mailto:') ? undefined : '_blank'} rel={segment.href.startsWith('mailto:') ? undefined : 'noreferrer'}>{segment.text}</a> : <React.Fragment key={part}>{segment.text}</React.Fragment>)}</p>)}
+              {copy.biography.map((paragraph, index) => <p key={index}>{paragraph.map((segment, part) => {
+                if (!segment.href) return <React.Fragment key={part}>{segment.text}</React.Fragment>;
+                const isEmail = segment.href === 'mailto:';
+                const href = isEmail
+                  ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(copy.email)}`
+                  : segment.href;
+                return <a key={part} href={href} target="_blank" rel="noreferrer">{segment.text}</a>;
+              })}</p>)}
             </div>
           </section>
 
