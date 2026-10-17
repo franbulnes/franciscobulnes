@@ -1,34 +1,46 @@
-# Fran Bulnes Home
+# Fran Bulnes — sitio personal
 
-Minimal React/Vite home page for franciscobulnes.cl.
+Sitio personal estático con versiones en inglés y español, una biografía editable y una sección de proyectos preparada para crecer. El inglés es el idioma inicial; el selector conserva la elección manual en este navegador.
 
-## Run locally
+## Desarrollo
+
+Requisitos: Node.js 22.12+ o 24 y npm.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-## Build
+Agentation está disponible en desarrollo y en la exportación de revisión. La compilación normal lo excluye.
+
+## Contenido
+
+Edita `src/content.js` para actualizar los dos idiomas. Mantén la estructura sincronizada y conserva el mismo `id` para cada proyecto en ambas versiones. Los textos con enlaces se escriben como segmentos `{ text, href }`; los párrafos sin enlace pueden ser un único segmento.
+
+Los proyectos son arreglos vacíos por ahora. Cuando agregues uno, crea su contenido en `es.projects` y `en.projects`, con títulos, fechas, cuerpo y secciones traducidos. Al agregar la primera entrada, el estado «En construcción» / «Coming soon» se reemplaza automáticamente por la lista. Cada proyecto puede declarar tres dibujos fijos en `doodles`; usa dibujos distintos para cada proyecto y elige tonos `ink`, `blue` o `pink`.
+
+Las notas también están en `src/content.js`; actualmente no se muestran en la página.
+
+## Fotos
+
+Usa `ProgressiveImage` para las fotos. El import `?progressive` genera una miniatura borrosa y conserva las dimensiones mientras carga la imagen completa:
+
+```jsx
+import photo from './assets/photos/mi-foto.webp?progressive';
+import ProgressiveImage from './components/ProgressiveImage';
+
+<ProgressiveImage image={photo} alt="Descripción de la foto" />
+```
+
+## Compilar y previsualizar
 
 ```bash
 npm run build
+npm run preview
 ```
 
-Deploy the generated `dist` folder to Vercel, Netlify, Cloudflare Pages, or any static host.
+`npm run preview:export` genera `standalone.html`, un HTML autocontenido. `npm run preview:review` genera `review.html` con Agentation para revisar el diseño. Ambos archivos son generados; no los edites a mano.
 
-## Deploy to franciscobulnes.cl (GitHub Pages)
+## Publicación
 
-1. Create a repo on GitHub (e.g. `franciscobulnes.cl` or `fran-home`)
-2. Push this project to `main`
-3. In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**
-4. In your DNS provider, add:
-   - `A` records pointing to GitHub Pages IPs: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - Or a `CNAME` record: `www` → `<usuario>.github.io`
-   - For apex domain (`franciscobulnes.cl`), use the A records above
-5. Back in GitHub Pages settings, set custom domain to `franciscobulnes.cl` and enable HTTPS
-
-## Edit content
-
-- Text/content: `src/App.jsx`
-- Styles/colors/layout: `src/styles.css`
+El workflow de `.github/workflows` compila y despliega `dist` al subir cambios a `main`. GitHub Pages sirve el sitio como archivos estáticos. El dominio configurado en `public/CNAME` es `franciscobulnes.cl` y la base actual es `/`.

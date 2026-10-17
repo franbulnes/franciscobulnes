@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import progressiveImages from './scripts/progressive-images.mjs';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [progressiveImages(), react()],
   base: '/',
 });
