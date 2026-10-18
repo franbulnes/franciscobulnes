@@ -60,7 +60,7 @@ button svg, a > svg { height: 14px; width: 14px; flex-shrink: 0; }
 .progressive-image[data-state="loaded"] .image-placeholder, .progressive-image[data-state="error"] .image-placeholder { opacity: 0; }
 .image-fallback { position: absolute; inset: 0; display: grid; place-items: center; padding: 4px; color: var(--muted); font-size: 10px; text-align: center; }
 .avatar-scene { position: absolute; z-index: 2; top: -70px; left: 0; width: 80px; height: 108px; margin-bottom: 0; }
-.site-avatar { position: absolute; left: 0; bottom: 0; width: 80px; height: 80px; aspect-ratio: 1; border: 3px solid #fff; border-radius: 50%; }
+.site-avatar { position: absolute; left: 0; bottom: 0; width: 80px; height: 80px; aspect-ratio: 1; border: 3px solid #fff; border-radius: 50%; background: #fff; }
 .avatar-sleeping-dog { position: absolute; z-index: 2; top: -4px; left: 8px; display: block; width: 64px; height: 64px; object-fit: contain; pointer-events: none; }
 .profile-copy { padding-top: 0; }
 .site-header h1 { font-size: 14px; font-weight: 530; letter-spacing: -.2px; line-height: 1.5; }
