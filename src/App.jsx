@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { InstagramLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
+import { siX } from 'simple-icons';
 import { content } from './content';
 import { Agentation } from 'agentation';
 import Sketch from './components/Sketch';
@@ -13,6 +15,23 @@ const showAgentation = import.meta.env.DEV || import.meta.env.MODE === 'review';
 const CLOCK_FLIP_STEPS = 4;
 const CLOCK_FLIP_INTERVAL = 75;
 const avatar = Object.values(import.meta.glob('./assets/photos/avatar.webp', { eager: true, query: '?progressive', import: 'default' }))[0];
+const homeBanner = Object.values(import.meta.glob('./assets/photos/home-banner.webp', { eager: true, query: '?progressive', import: 'default' }))[0];
+
+function SocialLinks() {
+  return (
+    <nav className="social-links" aria-label="Social media">
+      <a href="https://www.instagram.com/franentrenubes/" target="_blank" rel="noreferrer" aria-label="Instagram">
+        <InstagramLogoIcon aria-hidden="true" focusable="false" />
+      </a>
+      <a href="https://www.linkedin.com/in/fcobulnes/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+        <LinkedInLogoIcon aria-hidden="true" focusable="false" />
+      </a>
+      <a href="https://x.com/franentrenubes" target="_blank" rel="noreferrer" aria-label="X">
+        <svg className="social-x-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={siX.path} /></svg>
+      </a>
+    </nav>
+  );
+}
 
 function LocalClock({ locale }) {
   const [time, setTime] = useState(new Date());
@@ -87,17 +106,22 @@ function App() {
     <>
       <a className="skip-link" href="#contenido">{copy.skipLink}</a>
       <div className="site-wrap" id="inicio">
-        <nav className="language-switch" aria-label={copy.languageLabel}>
-          <button type="button" lang="es" aria-pressed={language === 'es'} onClick={() => setLanguage('es')}>ES</button>
-          <span aria-hidden="true">/</span>
-          <button type="button" lang="en" aria-pressed={language === 'en'} onClick={() => setLanguage('en')}>EN</button>
-        </nav>
-        <header className="site-header">
-          {avatar && <div className="avatar-scene"><img src={sleepingMaltese} className="avatar-sleeping-dog" alt="" aria-hidden="true" /><ProgressiveImage image={avatar} alt={`${copy.avatarAlt} ${copy.name}`} className="site-avatar" loading="eager" fetchPriority="high" fallback="FB" /></div>}
-          <h1>{copy.name}</h1>
-          <p className="updated">{copy.updated}</p>
-        </header>
-        <main id="contenido">
+        <div className="site-topbar" aria-hidden="true" />
+        <div className="home-cover">
+          {homeBanner && <ProgressiveImage image={homeBanner} alt="" className="home-cover-image" loading="eager" fetchPriority="high" />}
+          <nav className="language-switch" aria-label={copy.languageLabel}>
+            <button type="button" lang="es" aria-pressed={language === 'es'} onClick={() => setLanguage('es')}>ES</button>
+            <span aria-hidden="true">/</span>
+            <button type="button" lang="en" aria-pressed={language === 'en'} onClick={() => setLanguage('en')}>EN</button>
+          </nav>
+          <SocialLinks />
+        </div>
+        <div className="home-copy">
+          <header className="site-header">
+            {avatar && <div className="avatar-scene"><img src={sleepingMaltese} className="avatar-sleeping-dog" alt="" aria-hidden="true" /><ProgressiveImage image={avatar} alt={`${copy.avatarAlt} ${copy.name}`} className="site-avatar" loading="eager" fetchPriority="high" fallback="FB" /></div>}
+            <div className="profile-copy"><h1>{copy.name}</h1><p className="updated">{copy.updated}</p></div>
+          </header>
+          <main id="contenido">
           <section className="intro" aria-label={copy.sectionLabel}>
             <div className="intro-copy">
               <p className="intro-lead">{copy.introduction}</p>
@@ -126,8 +150,9 @@ function App() {
               <EntryDialog entry={p} open={active?.id === p.id} copy={copy} />
             </Dialog>)}</div>}
           </section>
-        </main>
-        <footer className="site-footer"><LocalClock locale={language} /><WeatherCloud /></footer>
+          </main>
+          <footer className="site-footer"><LocalClock locale={language} /><WeatherCloud /></footer>
+        </div>
       </div>
       {showAgentation && <Agentation appName="Fran — revisión de diseño" />}
     </>
